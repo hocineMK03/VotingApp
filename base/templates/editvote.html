@@ -1,0 +1,28 @@
+{%extends 'main.html'%}
+{%block content%}
+
+
+<form action="" method="post">
+    {%csrf_token%}
+    {%for choices in choices_avaiable%}
+  
+    {%if choices in listofchoices%}
+
+    <label>{{choices.choices}}</label>
+    <input type="checkbox" name="check_choices" value="{{choices.id}}" checked> 
+    <br>
+    
+    {%else%}
+    <label>{{choices.choices}}</label>
+    <input type="checkbox" name="check_choices" value="{{choices.id}}" > 
+    <br>
+  
+    
+    {%endif%}
+
+  {%endfor%}
+  
+  <input type="submit" name="save_choice" value="save" class="button">
+</form>
+</form>
+{%endblock content%}

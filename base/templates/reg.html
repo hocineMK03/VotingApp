@@ -1,0 +1,10 @@
+{%extends 'main.html'%}
+{%block content%}
+
+<form method="post" action="">
+    {%csrf_token%}
+    {{usercreation.as_p}}
+    <input type="submit" value="register"/>
+</form>
+<p> <a href="{% url 'loginpage'%}">Already have an account ? Log in</a> </p>
+{%endblock content%}

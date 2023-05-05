@@ -1,0 +1,65 @@
+{%extends 'main.html'%}
+{%block content%}
+
+<style>
+    .button {
+  background-color: #4CAF50; /* Green */
+  border: none; 
+  color: white;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.button-red {
+    background-color: #FF0000; /* Red */
+  }
+
+</style>
+<span>@{{poll.Created_by}}</span>
+<h3>{{poll.Question}}</h3>
+<h5>Desc:{{poll.Desc}}</h5>
+
+
+
+{% if didvote%}
+
+{%for choices in choices_avaiable%}
+
+  {%if choices in listofchoices%}
+
+  <label>{{choices.choices}}</label>
+  <input type="checkbox" name="check_choices" value="{{choices.id}}" checked> --> {{choices.count}} votes
+  <br>
+  
+  {%else%}
+  <label>{{choices.choices}}</label>
+  <input type="checkbox" name="check_choices" value="{{choices.id}}" > --> {{choices.count}} votes
+  <br>
+
+  
+  {%endif%}
+  {%endfor%}
+{%else%}
+<form method="post" action="">
+  {%csrf_token%}
+  {%for choices in choices_avaiable%}
+  
+  <label>{{choices.choices}}</label>
+  <input type="checkbox" name="check_choices" value="{{choices.id}}" >
+  <br>
+
+  {%endfor%}
+  
+  <input type="submit" name="save_choice" value="save" class="button">
+</form>
+
+{%endif%}
+
+{%if cansee%}
+<a href="{%url 'choice_create' poll.id %}">add choices here</a>
+{%else%}
+<a href="{%url 'editvote' poll.id%}">wanna edit ?</a>
+{%endif%}
+{%endblock content%}

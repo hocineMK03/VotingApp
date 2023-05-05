@@ -1,0 +1,45 @@
+{%extends 'main.html'%}
+{%block content%}
+<style >
+    
+    .errorlist li {
+    background-color: red;
+    color: white;
+    display: block;
+    font-size: 10px;
+    margin: 0 0 3px;
+    padding: 4px 5px;
+    }
+    .errorblock{
+        display: block;
+        color: whitesmoke;
+        background-color: red;
+        margin-right: 600px;
+    }
+    
+
+   </style>
+
+
+<form method="post" action="">
+    {%csrf_token%}
+    
+    {{form.as_div}}
+    
+    <input type="submit" value="Login"/>
+    
+   
+</form>
+{%if not isvalidlogin%}
+
+{%for i in Listoferrors%}
+<div class="errorblock">{{i}}</div>
+{%endfor%}
+{%endif%}
+
+
+
+
+
+<p> <a href="{% url 'registerpage'%}">Didn't Sign Up yet ? Register here</a> </p>
+{%endblock content%}

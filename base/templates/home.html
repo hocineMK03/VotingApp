@@ -1,0 +1,141 @@
+{%extends 'main.html'%}
+{%block content%}
+<style>
+    .mainone{
+        display: grid;
+        grid-template-rows: 1fr 5fr;
+      
+    }
+    .navbar{
+        display: grid;
+        grid-template-columns: 2fr 5fr 2fr;
+    }
+    .container{
+        display: grid;
+        grid-template-columns: 3fr 2fr 3fr 2fr 3fr;
+    }
+    .contribution{
+        display: grid;
+        grid-template-columns: 2fr 2fr;
+    }
+</style>
+
+<div class="mainone">
+
+    <div class="navbar">
+
+        <div>
+            <form method="GET">
+            <input type="text" name="s" placeholder="search" />
+            </form>
+        </div>
+
+
+        <div>
+            {%if authent%}
+            <h4>hello again ! mr {{you}}</h4>
+            <a href="">Profile</a> <a href="">Notifications</a>
+            {%endif%} 
+            
+            
+
+        </div>
+
+
+        <div>
+        {%if authent%}
+        <a href="{%url 'logoutpage' %}">Logout</a>
+        
+        {%else%}
+        <a href="{% url 'loginpage'%}" >Login</a>
+        <a href="{% url 'registerpage'%}">Register</a>
+        {%endif%}
+        </div>
+
+    </div>
+    <div class="container">
+        
+        <div>
+            <h3>most populaire Polls :</h3>
+            {%for r in recent%}
+            <hr>
+            <div>
+                <div>
+                    <span>@{{r.Created_by}}</span>
+                <a href="{%url 'poll_visit' r.id%}"> <h3>{{r.Question}}</h3></a>
+                <h5>Desc:{{r.Desc}}</h5>
+            </div>
+                <div>
+                    {% if thevotingdictionary.num == r%}
+                    {%for a in thevotingdictionary.list %}
+                    <p>hi</p>
+                    {%endfor%}
+                    {%endif%}
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+        <div></div>
+        <div>
+            <a href="{% url 'poll_create'%}"><h3>Create a Poll</h3></a>
+            <div>
+            {%for p in pols%}
+            <div>
+                <hr>
+                <span>@{{p.Created_by}}</span>
+               <a href="{%url 'poll_visit' p.id%}"> <h3>{{p.Question}}</h3></a>
+                <h5>Desc:{{p.Desc}}</h5>
+
+                
+                
+                
+            </div>
+            {%endfor%}
+        </div>
+        </div>
+
+        <div></div>
+        {%if authent%}
+        <div>
+            <h3>Your latest contribution :</h3>
+            <div class="contribution">
+                <div>
+                    <h4>Your Posts:</h4>
+                    
+                    {%for posts in posts_contribution%}
+                    <a href="{% url 'poll_visit' posts.id%}"><div>{{posts.Question}}</div></a>
+                    <hr>
+                    {%endfor%}
+                </div>
+                <div>
+                    <h4>Your Reactions:</h4>
+                    
+
+                    {%for post in posts_reactions%}
+                   
+                    <a href="{% url 'poll_visit' post.the_poll.id%}"><div>{{post.the_choice.choices}}</div></a>
+                    <hr>
+                    {%endfor%}
+                </div>
+
+            </div>
+        </div>
+        {%endif%}
+
+
+
+
+    </div>
+    
+
+
+
+
+</div>
+
+
+
+
+
+
+{%endblock content%}

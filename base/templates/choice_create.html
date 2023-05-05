@@ -1,0 +1,10 @@
+{% extends 'main.html'%}
+{%block content%}
+<form action="" method="post">
+{%csrf_token%}
+<label>choice:</label>
+{{form.choices}}
+
+<input type="submit" value="Save"/>
+</form>
+{%endblock content%}
